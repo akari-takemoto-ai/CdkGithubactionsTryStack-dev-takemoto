@@ -1,0 +1,20 @@
+name: workflow02
+ 
+on:
+  push:
+ 
+  workflow_dispatch:
+ 
+jobs:
+  printenv:
+    runs-on: [ephemeral-self-hosted, "${{ github.run_id }}"]
+ 
+    steps:
+      - uses: actions/checkout@v4
+ 
+      - run: printenv | tee printenv.log
+ 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: printenv-log
+          path: ./printenv.log
